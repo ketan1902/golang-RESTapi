@@ -15,9 +15,9 @@ func PostCreate(c *gin.Context) {
 
 	c.Bind(&body)
 
-	post := models.Post{Title: body.Title, Body: body.Body}
+	posts := models.Post{Title: body.Title, Body: body.Body}
 
-	result := initializers.DB.Create(&post)
+	result := initializers.DB.Create(&posts)
 
 	if result.Error != nil {
 		c.Status(400)
@@ -25,18 +25,18 @@ func PostCreate(c *gin.Context) {
 	}
 
 	c.JSON(200, gin.H{
-		"post": post,
+		"posts": posts,
 	})
 }
 
 func PostIndex(c *gin.Context) {
 
-	var posts []models.Post
+	var post []models.Post
 
-	initializers.DB.Find(&posts)
+	initializers.DB.Find(&post)
 
 	c.JSON(200, gin.H{
-		"posts": posts,
+		"posts": post,
 	})
 
 }
@@ -52,16 +52,16 @@ func PostUpdate(c *gin.Context) {
 
 	c.Bind(&body)
 
-	var post models.Post
-	initializers.DB.Find(&post, id)
+	var posts models.Post
+	initializers.DB.Find(&posts, id)
 
-	initializers.DB.Model(&post).Updates(models.Post{
+	initializers.DB.Model(&posts).Updates(models.Post{
 		Title: body.Title,
 		Body:  body.Body,
 	})
 
 	c.JSON(200, gin.H{
-		"post": post,
+		"posts": posts,
 	})
 
 }

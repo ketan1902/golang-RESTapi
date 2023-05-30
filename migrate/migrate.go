@@ -1,4 +1,4 @@
-package migrate
+package main
 
 import (
 	"github.com/ketan1902/go-crud/initializers"
@@ -14,4 +14,5 @@ func init() {
 func main() {
 
 	initializers.DB.AutoMigrate(&models.Post{})
+
 }
